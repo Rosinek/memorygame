@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MemoryGame</string>
+    <string name="back">back</string>
+    <string name="front">front</string>
+</resources>
