@@ -51,6 +51,7 @@ public class GameActivity extends AppCompatActivity implements GameView, GridBut
     @Override
     public void setScore(int score) {
         tvScore.setText(String.format("Score: %d", score));
+
     }
 
     @Override
