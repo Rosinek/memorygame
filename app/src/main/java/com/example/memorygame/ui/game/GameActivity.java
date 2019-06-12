@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.memorygame.R;
-import com.example.memorygame.model.GameItem;
 import com.example.memorygame.widgets.GridButton;
 import com.example.memorygame.widgets.GridButtonListener;
 
@@ -27,6 +26,9 @@ public class GameActivity extends AppCompatActivity implements GameView, GridBut
     @BindView(R.id.tv_score)
     TextView tvScore;
 
+    @BindView(R.id.tv_moves)
+    TextView tvMoves;
+
     private List<String> listOfItems = new ArrayList<>();
 
     private GridButton gv0, gv1, gv2, gv3, gv4, gv5, gv6, gv7, gv8, gv9, gv10, gv11;
@@ -36,6 +38,7 @@ public class GameActivity extends AppCompatActivity implements GameView, GridBut
     private GamePresenter presenter;
 
     private int score = 0;
+    private int moves = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +52,9 @@ public class GameActivity extends AppCompatActivity implements GameView, GridBut
     }
 
     @Override
-    public void setScore(int score) {
-        tvScore.setText(String.format("Score: %d", score));
-
+    public void addMoves() {
+        moves++;
+        tvMoves.setText(String.format("Moves: %d", moves));
     }
 
     @Override
@@ -72,20 +75,20 @@ public class GameActivity extends AppCompatActivity implements GameView, GridBut
     public void addScore(String value) {
         score++;
         tvScore.setText(String.format("Score: %d", score));
-
         hideItem(value);
     }
 
     private void hideItem(String value) {
         for (GridButton item : listOfButtons) {
-            if (item.getItemValue().equals(value))
+            if (item.getItemValue().getValue().equals(value))
                 item.setVisibility(View.INVISIBLE);
         }
     }
 
     @Override
-    public void onClickGridButton(GameItem item) {
-        presenter._model_clicked(item);
+    public void onClickGridButton(GridButton item) {
+        if (!item.ismIsBackVisible())
+            presenter._model_clicked(item.getItemValue());
     }
 
 
@@ -96,6 +99,8 @@ public class GameActivity extends AppCompatActivity implements GameView, GridBut
         handler.postDelayed(this::randomizeItems, 1100);
         score = 0;
         tvScore.setText(String.format("Score: %d", score));
+        moves = 0;
+        tvMoves.setText(String.format("Moves: %d", moves));
         showAllItems();
     }
 

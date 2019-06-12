@@ -1,5 +1,7 @@
 package com.example.memorygame.ui.game;
 
+import android.os.Handler;
+
 import com.example.memorygame.model.GameItem;
 
 public class GamePresenter {
@@ -21,17 +23,30 @@ public class GamePresenter {
                 model.setItsSecond(false);
                 _view_search_failed();
             }
+            _view_addMoves();
         } else {
             model.setFirstItem(item);
             model.setItsSecond(true);
         }
     }
 
+    private void _view_addMoves() {
+        view.addMoves();
+    }
+
     public void _view_addScore(String value) {
-        view.addScore(value);
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            view.addScore(value);
+        }, 1500);
+
     }
 
     public void _view_search_failed() {
-        view.showFrontOnAllItems();
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            view.showFrontOnAllItems();
+        }, 1500);
+
     }
 }

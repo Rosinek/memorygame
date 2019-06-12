@@ -2,7 +2,7 @@ package com.example.memorygame.ui.game;
 
 interface GameView {
 
-    void setScore(int score);
+    void addMoves();
 
     void randomizeItems();
 

@@ -93,12 +93,13 @@ public class GridButton extends ConstraintLayout {
 
     private void setClick() {
         cardView.setOnClickListener(v -> {
+            listener.onClickGridButton(this);
             if (!mIsBackVisible) {
                 showBackSide();
             } else {
 //                showFrontSide();
             }
-            listener.onClickGridButton(gameItem);
+
         });
     }
 
@@ -118,8 +119,8 @@ public class GridButton extends ConstraintLayout {
         mIsBackVisible = true;
     }
 
-    public String getItemValue() {
-        return gameItem.getValue();
+    public GameItem getItemValue() {
+        return gameItem;
     }
 
     public void setItemValue(String value) {
