@@ -58,6 +58,13 @@ public class GameActivity extends AppCompatActivity implements GameView, GridBut
     }
 
     @Override
+    public void addScore(String value) {
+        score++;
+        tvScore.setText(String.format("Score: %d", score));
+        hideItem(value);
+    }
+
+    @Override
     public void randomizeItems() {
         Collections.shuffle(listOfItems);
         setItemsToGridButtons();
@@ -69,13 +76,6 @@ public class GameActivity extends AppCompatActivity implements GameView, GridBut
             if (item.ismIsBackVisible())
                 item.showFrontSide();
         }
-    }
-
-    @Override
-    public void addScore(String value) {
-        score++;
-        tvScore.setText(String.format("Score: %d", score));
-        hideItem(value);
     }
 
     private void hideItem(String value) {
